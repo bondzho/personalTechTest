@@ -1,6 +1,7 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,12 +15,16 @@ public class BasePage {
 
     public BasePage() throws MalformedURLException, InterruptedException {
         this.driver = AppiumConfig.getDriver();
-        this.wait = new WebDriverWait(driver, 10);
+        this.wait = new WebDriverWait(driver, 15);
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
     public WebElement waitElementIsVisible(WebElement element){
-        wait.until(ExpectedConditions.visibilityOf(element));
+        try {
+            wait.until(ExpectedConditions.visibilityOf(element));
+        } catch (NoSuchElementException noSuchElementException){
+            System.out.println(element+" element not found");
+        }
         return element;
     }
 
@@ -31,5 +36,10 @@ public class BasePage {
     public void sendKeysOnElement(WebElement element, String text){
         waitElementIsVisible(element);
         element.sendKeys(text);
+    }
+
+    public WebElement findTheElement(WebElement element){
+        waitElementIsVisible(element);
+        return element;
     }
 }

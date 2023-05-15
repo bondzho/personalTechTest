@@ -12,14 +12,12 @@ public class BaseTest {
     protected WebDriverWait wait;
     protected ComposePage composePage;
     protected SentFolderPage sentFolderPage;
-    protected DraftsPage draftsPage;
 
     @BeforeClass
     public void setup() throws MalformedURLException, InterruptedException {
         driver = AppiumConfig.getDriver();
         composePage = new ComposePage();
         sentFolderPage = new SentFolderPage();
-        draftsPage = new DraftsPage();
     }
 
 //    @AfterClass

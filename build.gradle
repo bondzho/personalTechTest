@@ -23,4 +23,7 @@ repositories {
 
 test {
     useJUnitPlatform()
+    useTestNG() {
+        suites 'src/test/resources/testng.xml'
+    }
 }
